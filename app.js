@@ -1,21 +1,55 @@
-(function(){
+let num1 = null;
+let num2 = null;
+let operator = null;
+let screen = document.getElementById("screen");
 
-    let screen=document.querySelector(".screen");
-    let btns=document.querySelectorAll(".btn");
-    let clear=document.querySelector(".clear");
-    let equal=document.querySelector(".equal");
-    btns.forEach(function(btn){
-        btn.addEventListener('click',function(e){
-            let values =e.target.dataset.num;
-            screen.value += values
-        });
-    });
-    equal.addEventListener("click",function(e){
-        if(screen.value === ""){
-            screen.value = "Please enter"
-        }else{
-            screen.value= eval(screen.value)
-        }
-    })
+function clearScreen() {
+  screen.value = "0";
+  num1 = null;
+  num2 = null;
+  operator = null;
+}
 
-})();
+function appendNumber(number) {
+  if (screen.value === "0") {
+    screen.value = number;
+  } else {
+    screen.value += number;
+  }
+}
+
+function appendDecimal() {
+  if (!screen.value.includes(".")) {
+    screen.value += ".";
+  }
+}
+
+function setOperator(op) {
+  num1 = parseFloat(screen.value);
+
+  operator = op;
+  screen.value = "0";
+}
+
+function calculate() {
+  num2 = parseFloat(screen.value);
+  let result;
+  switch (operator) {
+    case "+":
+      result = num1 + num2;
+      break;
+    case "-":
+      result = num1 - num2;
+      break;
+    case "*":
+      result = num1 * num2;
+      break;
+    case "/":
+      result = num1 / num2;
+      break;
+
+    default:
+      result = 0;
+  }
+  screen.value=result
+}
